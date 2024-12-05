@@ -53,4 +53,28 @@ ann.add(
 ann.add(tf.keras.layers.Dense(units=10, activation="relu"))
 
 # output layer
-ann.add(tf.keras.layers.Dense(units=1, activation="sigmoid"))
+ann.add(
+    tf.keras.layers.Dense(units=1, activation="sigmoid")
+)  # non binary classification activation should be softmax
+
+# compiling the ANN
+ann.compile(
+    optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"]
+)  # for binary classification always use in loss 'binary_crossentropy' and for non binary it should be 'categorical_crossentropy'
+
+#training the ANN
+ann.fit(x_train, y_train, batch_size=32, epochs=100)
+
+#Making predictions
+#print(ann.predict(sc.transform([[1,0,0,600,1,40,3,6000,2,1,1,50000]]))>0.5)
+
+#predicting the test set results
+y_pred = ann.predict(x_test)
+y_pred = (y_pred>0.5)
+#print(np.concatenate((y_pred.reshape(len(y_pred),1),y_test.reshape(len(y_test),1)),1))
+
+#making the confusion matrix
+from sklearn.metrics import confusion_matrix, accuracy_score
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
+accuracy_score(y_test, y_pred)
