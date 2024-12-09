@@ -44,7 +44,7 @@ x_test = sc.transform(x_test)  # use the same scaler to tranform the test set
 # initializing the ANN
 ann = tf.keras.models.Sequential()
 
-# adding unput layer and first hidden layer
+# adding input layer and first hidden layer
 ann.add(
     tf.keras.layers.Dense(units=10, activation="relu")
 )  # the units mean how many hidden layers (neruons) it will have, i can change if i  want
